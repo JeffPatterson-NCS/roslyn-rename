@@ -16,7 +16,7 @@ It's designed to be called by a Claude Code skill (`/rename`) so the AI never ha
 ## Installation
 
 ```
-git clone https://github.com/jpattersonncs/roslyn-rename
+git clone https://github.com/JeffPatterson-NCS/roslyn-rename
 cd roslyn-rename
 dotnet pack -o nupkg
 dotnet tool install --global --add-source ./nupkg RoslynRename

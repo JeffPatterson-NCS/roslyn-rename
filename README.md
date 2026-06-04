@@ -130,6 +130,32 @@ Claude will find the solution file, run the tool, and report results. No file sc
 4. `Renamer.RenameSymbolAsync` computes the full set of edits needed across all documents.
 5. Changed documents are written back to disk with their original encoding preserved.
 
+## FAQ
+
+**Does Claude automatically use this tool when I ask it to rename something?**
+
+No. By default Claude doesn't know it exists, so it will fall back to finding references with LSP and editing files one by one. To make it the default for all C# rename requests, add this to your global `~/.claude/CLAUDE.md`:
+
+```markdown
+## C# Rename
+Always use `/cs-ren` for any C# symbol rename (class, method, property, field, interface, enum).
+Never grep or text-search files to find references — use the tool.
+```
+
+After that, saying "rename method `Foo` to `Bar`" will trigger the skill automatically rather than file-by-file edits.
+
+**Can I still call it explicitly?**
+
+Yes — `/cs-ren OldName NewName` and `/cs-mv OldName NewName` work regardless of whether the CLAUDE.md instruction is present.
+
+**Why does it need a `.sln` or `.slnx` file?**
+
+Roslyn loads the full project graph through MSBuild to resolve references correctly. A standalone `.csproj` doesn't give it enough context for cross-project renames. If you only have a single project with no solution file, create one: `dotnet new sln && dotnet sln add YourProject.csproj`.
+
+**What if only some projects in my solution load?**
+
+The tool exits with an error listing the failed projects rather than silently producing a partial rename. Fix the load errors first (usually a missing SDK or unrestored packages), or pass `--allow-partial` if you're certain the failures don't contain references to the symbol you're renaming.
+
 ## License
 
 MIT

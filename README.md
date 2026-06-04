@@ -6,7 +6,7 @@ A .NET global tool that performs semantic C# symbol rename using Roslyn's rename
 
 AI coding tools that rename symbols by grepping files get it wrong. They miss references in generated code, hit false positives in comments and strings, and don't understand C# semantics. This tool loads your solution into a Roslyn workspace and calls `Renamer.RenameSymbolAsync`, so the result is identical to what VS or Rider would produce.
 
-It's designed to be called by a Claude Code skill (`/rename`) so the AI never has to read and edit individual files to perform a rename.
+It's designed to be called by a Claude Code skill so the AI never has to read or edit individual files to perform a rename. Two skill aliases are included: `/cs-ren` (Windows convention, `ren` = rename) and `/cs-mv` (Unix convention, `mv` = move/rename).
 
 ## Requirements
 
@@ -92,20 +92,28 @@ Multiple symbols named 'Process' — use --kind to narrow:
 
 If one or more projects in the solution fail to load (missing SDK, unrestored packages, unsupported project type), the tool will print the failures and exit rather than silently producing an incomplete rename. Pass `--allow-partial` to proceed anyway — references in the unloaded projects will not be updated.
 
-## Claude Code skill
+## Claude Code skills
 
-A `/rename` skill is included for use with [Claude Code](https://claude.ai/code). Copy it to your global commands directory:
+Two skill aliases are included. Copy them to your global commands directory:
+
+**Windows:**
+```
+copy .claude\commands\cs-ren.md %USERPROFILE%\.claude\commands\cs-ren.md
+copy .claude\commands\cs-mv.md %USERPROFILE%\.claude\commands\cs-mv.md
+```
+
+**Linux / macOS:**
+```
+cp .claude/commands/cs-ren.md ~/.claude/commands/cs-ren.md
+cp .claude/commands/cs-mv.md ~/.claude/commands/cs-mv.md
+```
+
+Use whichever feels natural — they are identical:
 
 ```
-copy .claude\commands\rename.md %USERPROFILE%\.claude\commands\rename.md
-```
-
-Then in any C# project session:
-
-```
-/rename OldName NewName
-/rename OldName NewName --kind class
-/rename ProcessOrder HandleOrder --kind method --dry-run
+/cs-ren OldName NewName
+/cs-mv OldName NewName --kind class
+/cs-ren ProcessOrder HandleOrder --kind method --dry-run
 ```
 
 Claude will find the solution file, run the tool, and report results. No file scanning, no token-expensive grep loops.

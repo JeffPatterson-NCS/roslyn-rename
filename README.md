@@ -98,8 +98,9 @@ Two skill aliases are included. Copy them to your global commands directory:
 
 **Windows:**
 ```
-copy .claude\commands\cs-ren.md %USERPROFILE%\.claude\commands\cs-ren.md
-copy .claude\commands\cs-mv.md %USERPROFILE%\.claude\commands\cs-mv.md
+mkdir "%USERPROFILE%\.claude\commands" 2>nul
+copy .claude\commands\cs-ren.md "%USERPROFILE%\.claude\commands\cs-ren.md"
+copy .claude\commands\cs-mv.md "%USERPROFILE%\.claude\commands\cs-mv.md"
 ```
 
 **Linux / macOS:**

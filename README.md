@@ -96,11 +96,11 @@ If one or more projects in the solution fail to load (missing SDK, unrestored pa
 
 Two skill aliases are included. Copy them to your global commands directory:
 
-**Windows:**
-```
-mkdir "%USERPROFILE%\.claude\commands" 2>nul
-copy .claude\commands\cs-ren.md "%USERPROFILE%\.claude\commands\cs-ren.md"
-copy .claude\commands\cs-mv.md "%USERPROFILE%\.claude\commands\cs-mv.md"
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\commands"
+Copy-Item .claude\commands\cs-ren.md "$env:USERPROFILE\.claude\commands\cs-ren.md"
+Copy-Item .claude\commands\cs-mv.md "$env:USERPROFILE\.claude\commands\cs-mv.md"
 ```
 
 **Linux / macOS:**

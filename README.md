@@ -104,6 +104,7 @@ copy .claude\commands\cs-mv.md %USERPROFILE%\.claude\commands\cs-mv.md
 
 **Linux / macOS:**
 ```
+mkdir -p ~/.claude/commands
 cp .claude/commands/cs-ren.md ~/.claude/commands/cs-ren.md
 cp .claude/commands/cs-mv.md ~/.claude/commands/cs-mv.md
 ```

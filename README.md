@@ -96,6 +96,8 @@ If one or more projects in the solution fail to load (missing SDK, unrestored pa
 
 Two skill aliases are included. Copy them to your global commands directory:
 
+Run the following from inside the `roslyn-rename` repo directory:
+
 **Windows (PowerShell):**
 ```powershell
 New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\commands"
@@ -104,7 +106,7 @@ Copy-Item .claude\commands\cs-mv.md "$env:USERPROFILE\.claude\commands\cs-mv.md"
 ```
 
 **Linux / macOS:**
-```
+```bash
 mkdir -p ~/.claude/commands
 cp .claude/commands/cs-ren.md ~/.claude/commands/cs-ren.md
 cp .claude/commands/cs-mv.md ~/.claude/commands/cs-mv.md
